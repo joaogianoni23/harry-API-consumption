@@ -9,7 +9,7 @@ import { View, FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
 // Importa a biblioteca axios para buscar dados da internet
 import axios from "axios";
 
-// Importa o componente que mostra o card com dados do filme
+// Importa o componente que mostra o card com dados dos personagens
 import FilmCard from "../components/FilmCard";
 
 // Importa o componente que mostra o "esqueleto" animado de carregamento
@@ -17,7 +17,7 @@ import SkeletonCard from "../components/SkeletonCard";
 
 // Função principal que representa a tela inicial
 export default function Home() {
-  // Cria um estado chamado films para guardar a lista de filmes
+  // Cria um estado chamado films para guardar a lista de personagens
   const [films, setFilms] = useState([]);
 
   // Cria um estado chamado loading para saber se os dados ainda estão carregando
@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     // Espera 5 segundos para simular o carregamento e mostrar o SkeletonCard
     setTimeout(() => {
-      // Faz uma requisição GET na API do Studio Ghibli
+      // Faz uma requisição GET na API do Harry Potter
       axios.get("https://hp-api.onrender.com/api/characters")
         .then((res) => setFilms(res.data)) // Se der certo, guarda os dados no estado "films"
         .catch((err) => console.error(err)) // Se der erro, mostra no console
@@ -51,11 +51,11 @@ export default function Home() {
           contentContainerStyle={styles.list} // Aplica o estilo na lista
         />
       ) : (
-        // Se já carregou os dados, mostra os filmes reais
+        // Se já carregou os dados, mostra os personagens reais
         <FlatList
           data={films} // Lista vinda da API
-          keyExtractor={(item) => item.id} // Usa o ID do filme como chave
-          renderItem={({ item }) => <FilmCard film={item} />} // Renderiza um FilmCard passando o filme
+          keyExtractor={(item) => item.id} // Usa o ID do personagem como chave
+          renderItem={({ item }) => <FilmCard film={item} />} // Renderiza um FilmCard mostrando o personagem
           contentContainerStyle={styles.list} // Aplica o estilo na lista
         />
       )}
